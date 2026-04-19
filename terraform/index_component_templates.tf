@@ -151,7 +151,7 @@ resource "elasticstack_elasticsearch_component_template" "logs_kubernetes_audit_
 }
 
 resource "elasticstack_elasticsearch_component_template" "logs_vault_audit_mappings" {
-    name = "logs-vault.audit@mappings"
+    name = "logs-kubernetes.vault@mappings"
 
     template {
       mappings = jsonencode({

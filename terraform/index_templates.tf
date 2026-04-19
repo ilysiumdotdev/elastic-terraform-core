@@ -46,14 +46,15 @@ resource "elasticstack_elasticsearch_index_template" "logs_kubernetes_audit" {
 }
 
 resource "elasticstack_elasticsearch_index_template" "logs_vault_audit" {
-  name = "logs-vault.audit"
+  name = "logs-kubernetes.vault"
 
-  index_patterns = ["logs-vault.audit-*"]
+  index_patterns = ["logs-kubernetes.vault-*"]
   priority       = 300 
 
   composed_of = [
     elasticstack_elasticsearch_component_template.logs_base_settings.name,
     elasticstack_elasticsearch_component_template.logs_base_mappings.name,
+    elasticstack_elasticsearch_component_template.logs_kubernetes_mappings.name,
     elasticstack_elasticsearch_component_template.logs_vault_audit_mappings.name
   ]
 
