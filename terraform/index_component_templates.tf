@@ -212,3 +212,14 @@ resource "elasticstack_elasticsearch_component_template" "logs_vault_audit_mappi
     }
 }
 
+# resource "elasticstack_elasticsearch_component_template" "logs_unifi_mappings" {
+#     name = "logs-unifi@mappings"
+
+#     template {
+#         mappings = jsonencode({
+#             properties = {
+#                 type = { type = "keyword" }
+#             }
+#         })
+#     }
+# }

@@ -1,3 +1,16 @@
+resource "elasticstack_elasticsearch_index_template" "logs_envoy_access" {
+  name = "logs-envoy.access"
+
+  index_patterns = ["logs-envoy.access-*"]
+  priority       = 300
+
+  composed_of = [
+    elasticstack_elasticsearch_component_template.logs_base_settings.name,
+    elasticstack_elasticsearch_component_template.logs_base_mappings.name,
+  ]
+
+  data_stream {}
+}
 resource "elasticstack_elasticsearch_index_template" "logs_hubble_flow" {
   name = "logs-hubble.flow"
 
@@ -45,10 +58,24 @@ resource "elasticstack_elasticsearch_index_template" "logs_kubernetes_audit" {
   data_stream {}
 }
 
-resource "elasticstack_elasticsearch_index_template" "logs_vault_audit" {
-  name = "logs-kubernetes.vault"
+resource "elasticstack_elasticsearch_index_template" "logs_unifi" {
+  name = "logs-unifi"
 
-  index_patterns = ["logs-kubernetes.vault-*"]
+  index_patterns = ["logs-unifi-*"]
+  priority       = 300 
+
+  composed_of = [
+    elasticstack_elasticsearch_component_template.logs_base_settings.name,
+    elasticstack_elasticsearch_component_template.logs_base_mappings.name,
+  ]
+
+  data_stream {}
+}
+
+resource "elasticstack_elasticsearch_index_template" "logs_vault_audit" {
+  name = "logs-vault.audit"
+
+  index_patterns = ["logs-vault.audit-*"]
   priority       = 300 
 
   composed_of = [
@@ -60,4 +87,3 @@ resource "elasticstack_elasticsearch_index_template" "logs_vault_audit" {
 
   data_stream {}
 }
-
