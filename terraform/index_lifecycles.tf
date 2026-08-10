@@ -1,5 +1,12 @@
-resource "elasticstack_elasticsearch_index_lifecycle" "standard" {
-  name = "ilm-standard"
+/*
+--- Index Lifecycle Policies ---
+Lifecycling behavior for indices, such as when data should be moved
+between storage tiers and how long it should be retained in total.
+*/
+
+# Logs Default ILM Policy
+resource "elasticstack_elasticsearch_index_lifecycle" "logs_default" {
+  name = "logs-default-ilm-policy"
 
   hot {
     min_age = "0ms"
@@ -23,21 +30,6 @@ resource "elasticstack_elasticsearch_index_lifecycle" "standard" {
     min_age = "30d"
     delete {}
   }
-}
 
-resource "elasticstack_elasticsearch_index_lifecycle" "discovery" {
-  name = "ilm-discovery"
-
-  hot {
-    min_age = "0ms"
-    rollover {
-      max_age = "1d"
-      max_primary_shard_size = "5gb"
-    }
-  }
-
-  delete {
-    min_age = "3d"
-    delete {}
-  }
+  metadata = jsonencode(merge({}, local.common_metadata))
 }
