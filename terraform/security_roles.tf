@@ -15,3 +15,16 @@ resource "elasticstack_elasticsearch_security_role" "log_aggregator" {
 
   metadata = jsonencode(merge({}, local.common_metadata))
 }
+
+# Metrics Aggregator Role
+resource "elasticstack_elasticsearch_security_role" "metrics_aggregator" {
+  name        = "metrics_aggregator"
+  description = "Grants access to all metrics indices (metrics-*) to configure new indices and push data."
+
+  indices {
+    names      = ["metrics-*"]
+    privileges = ["create", "create_index", "auto_configure"]
+  }
+
+  metadata = jsonencode(merge({}, local.common_metadata))
+}

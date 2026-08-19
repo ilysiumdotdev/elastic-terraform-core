@@ -22,7 +22,10 @@ Benchmark: https://tutorials.technology/tutorials/hashcat-bcrypt-benchmark-rtx-4
 # Vector Service Identity
 resource "elasticstack_elasticsearch_security_user" "vector" {
     username = "vector"
-    roles    = [elasticstack_elasticsearch_security_role.log_aggregator.name]
+    roles = [
+        elasticstack_elasticsearch_security_role.log_aggregator.name,
+        elasticstack_elasticsearch_security_role.metrics_aggregator.name
+    ]
 
     password_hash = "$2b$10$IVF.IAVKu/mqgQAIdJHrs.tXFcvY/CqSLUjMzdJzWiLrSx8ANnJuy"
 
